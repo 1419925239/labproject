@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lab.dao.ReservationMapper">
+  <resultMap id="BaseResultMap" type="com.lab.bean.Reservation">
+    <id column="res_id" jdbcType="INTEGER" property="resId" />
+    <result column="reser_labid" jdbcType="INTEGER" property="reserLabid" />
+    <result column="reser_user_id" jdbcType="INTEGER" property="reserUserId" />
+    <result column="reser_expid" jdbcType="INTEGER" property="reserExpid" />
+    <result column="reser_type" jdbcType="INTEGER" property="reserType" />
+    <result column="weekday" jdbcType="INTEGER" property="weekday" />
+    <result column="reser_datatime" jdbcType="INTEGER" property="reserDatatime" />
+    <result column="reser_data" jdbcType="DATE" property="reserData" />
+    <result column="reser_creattime" jdbcType="TIMESTAMP" property="reserCreattime" />
+    <result column="reser_modifytime" jdbcType="TIMESTAMP" property="reserModifytime" />
+    <result column="reser_status" jdbcType="INTEGER" property="reserStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    res_id, reser_labid, reser_user_id, reser_expid, reser_type, weekday, reser_datatime, 
+    reser_data, reser_creattime, reser_modifytime, reser_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lab.bean.ReservationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from reservation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reservation
+    where res_id = #{resId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from reservation
+    where res_id = #{resId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lab.bean.ReservationExample">
+    delete from reservation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lab.bean.Reservation">
+    insert into reservation (res_id, reser_labid, reser_user_id, 
+      reser_expid, reser_type, weekday, 
+      reser_datatime, reser_data, reser_creattime, 
+      reser_modifytime, reser_status)
+    values (#{resId,jdbcType=INTEGER}, #{reserLabid,jdbcType=INTEGER}, #{reserUserId,jdbcType=INTEGER}, 
+      #{reserExpid,jdbcType=INTEGER}, #{reserType,jdbcType=INTEGER}, #{weekday,jdbcType=INTEGER}, 
+      #{reserDatatime,jdbcType=INTEGER}, #{reserData,jdbcType=DATE}, #{reserCreattime,jdbcType=TIMESTAMP}, 
+      #{reserModifytime,jdbcType=TIMESTAMP}, #{reserStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lab.bean.Reservation">
+    insert into reservation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resId != null">
+        res_id,
+      </if>
+      <if test="reserLabid != null">
+        reser_labid,
+      </if>
+      <if test="reserUserId != null">
+        reser_user_id,
+      </if>
+      <if test="reserExpid != null">
+        reser_expid,
+      </if>
+      <if test="reserType != null">
+        reser_type,
+      </if>
+      <if test="weekday != null">
+        weekday,
+      </if>
+      <if test="reserDatatime != null">
+        reser_datatime,
+      </if>
+      <if test="reserData != null">
+        reser_data,
+      </if>
+      <if test="reserCreattime != null">
+        reser_creattime,
+      </if>
+      <if test="reserModifytime != null">
+        reser_modifytime,
+      </if>
+      <if test="reserStatus != null">
+        reser_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resId != null">
+        #{resId,jdbcType=INTEGER},
+      </if>
+      <if test="reserLabid != null">
+        #{reserLabid,jdbcType=INTEGER},
+      </if>
+      <if test="reserUserId != null">
+        #{reserUserId,jdbcType=INTEGER},
+      </if>
+      <if test="reserExpid != null">
+        #{reserExpid,jdbcType=INTEGER},
+      </if>
+      <if test="reserType != null">
+        #{reserType,jdbcType=INTEGER},
+      </if>
+      <if test="weekday != null">
+        #{weekday,jdbcType=INTEGER},
+      </if>
+      <if test="reserDatatime != null">
+        #{reserDatatime,jdbcType=INTEGER},
+      </if>
+      <if test="reserData != null">
+        #{reserData,jdbcType=DATE},
+      </if>
+      <if test="reserCreattime != null">
+        #{reserCreattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserModifytime != null">
+        #{reserModifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserStatus != null">
+        #{reserStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lab.bean.ReservationExample" resultType="java.lang.Long">
+    select count(*) from reservation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update reservation
+    <set>
+      <if test="record.resId != null">
+        res_id = #{record.resId,jdbcType=INTEGER},
+      </if>
+      <if test="record.reserLabid != null">
+        reser_labid = #{record.reserLabid,jdbcType=INTEGER},
+      </if>
+      <if test="record.reserUserId != null">
+        reser_user_id = #{record.reserUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.reserExpid != null">
+        reser_expid = #{record.reserExpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.reserType != null">
+        reser_type = #{record.reserType,jdbcType=INTEGER},
+      </if>
+      <if test="record.weekday != null">
+        weekday = #{record.weekday,jdbcType=INTEGER},
+      </if>
+      <if test="record.reserDatatime != null">
+        reser_datatime = #{record.reserDatatime,jdbcType=INTEGER},
+      </if>
+      <if test="record.reserData != null">
+        reser_data = #{record.reserData,jdbcType=DATE},
+      </if>
+      <if test="record.reserCreattime != null">
+        reser_creattime = #{record.reserCreattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reserModifytime != null">
+        reser_modifytime = #{record.reserModifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reserStatus != null">
+        reser_status = #{record.reserStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update reservation
+    set res_id = #{record.resId,jdbcType=INTEGER},
+      reser_labid = #{record.reserLabid,jdbcType=INTEGER},
+      reser_user_id = #{record.reserUserId,jdbcType=INTEGER},
+      reser_expid = #{record.reserExpid,jdbcType=INTEGER},
+      reser_type = #{record.reserType,jdbcType=INTEGER},
+      weekday = #{record.weekday,jdbcType=INTEGER},
+      reser_datatime = #{record.reserDatatime,jdbcType=INTEGER},
+      reser_data = #{record.reserData,jdbcType=DATE},
+      reser_creattime = #{record.reserCreattime,jdbcType=TIMESTAMP},
+      reser_modifytime = #{record.reserModifytime,jdbcType=TIMESTAMP},
+      reser_status = #{record.reserStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lab.bean.Reservation">
+    update reservation
+    <set>
+      <if test="reserLabid != null">
+        reser_labid = #{reserLabid,jdbcType=INTEGER},
+      </if>
+      <if test="reserUserId != null">
+        reser_user_id = #{reserUserId,jdbcType=INTEGER},
+      </if>
+      <if test="reserExpid != null">
+        reser_expid = #{reserExpid,jdbcType=INTEGER},
+      </if>
+      <if test="reserType != null">
+        reser_type = #{reserType,jdbcType=INTEGER},
+      </if>
+      <if test="weekday != null">
+        weekday = #{weekday,jdbcType=INTEGER},
+      </if>
+      <if test="reserDatatime != null">
+        reser_datatime = #{reserDatatime,jdbcType=INTEGER},
+      </if>
+      <if test="reserData != null">
+        reser_data = #{reserData,jdbcType=DATE},
+      </if>
+      <if test="reserCreattime != null">
+        reser_creattime = #{reserCreattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserModifytime != null">
+        reser_modifytime = #{reserModifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reserStatus != null">
+        reser_status = #{reserStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where res_id = #{resId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lab.bean.Reservation">
+    update reservation
+    set reser_labid = #{reserLabid,jdbcType=INTEGER},
+      reser_user_id = #{reserUserId,jdbcType=INTEGER},
+      reser_expid = #{reserExpid,jdbcType=INTEGER},
+      reser_type = #{reserType,jdbcType=INTEGER},
+      weekday = #{weekday,jdbcType=INTEGER},
+      reser_datatime = #{reserDatatime,jdbcType=INTEGER},
+      reser_data = #{reserData,jdbcType=DATE},
+      reser_creattime = #{reserCreattime,jdbcType=TIMESTAMP},
+      reser_modifytime = #{reserModifytime,jdbcType=TIMESTAMP},
+      reser_status = #{reserStatus,jdbcType=INTEGER}
+    where res_id = #{resId,jdbcType=INTEGER}
+  </update>
+  <select id="selectcount" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT
+        t1.res_id
+    FROM
+        reservation t1
+    where
+        t1.reser_labid = #{arg0}
+    AND
+        t1.reser_data = #{arg1}
+    AND
+        t1.reser_datatime = #{arg2}
+    AND
+        t1.reser_status IS NULL;
+  </select>
+</mapper>

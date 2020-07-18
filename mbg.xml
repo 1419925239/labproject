@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 配置数据库连接信息 -->
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/lab-project?useSSL=true"
+                userId="root"
+                password="123456">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 指定javabean生成的指定位置 -->
+        <javaModelGenerator targetPackage="com.lab.bean"
+                            targetProject=".\src\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 指定sql映射文件生成的位置 -->
+        <sqlMapGenerator
+                targetPackage="mapper"
+                targetProject=".\src\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 指定dao接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.lab.dao"
+                             targetProject=".\src\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+
+        <!-- 指定每个表的生成策略 -->
+<!--        <table tableName="user" domainObjectName="User"></table>-->
+<!--        <table tableName="role" domainObjectName="Role"></table>-->
+<!--        <table tableName="user_role" domainObjectName="User_Role"></table>-->
+<!--        <table tableName="resource" domainObjectName="Resource"></table>-->
+<!--        <table tableName="role_resource" domainObjectName="Role_Resource"></table>-->
+<!--        <table tableName="labinformation" domainObjectName="LabInformation"></table>-->
+<!--        <table tableName="expinformation" domainObjectName="ExpInformation"></table>-->
+<!--        <table tableName="expresults" domainObjectName="ExpResults"></table>-->
+<!--        <table tableName="schedule" domainObjectName="Schedule"></table>-->
+<!--        <table tableName="reservation" domainObjectName="Reservation"></table>-->
+
+
+    </context>
+</generatorConfiguration>

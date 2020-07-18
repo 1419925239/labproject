@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lab.dao.ExpInformationMapper">
+  <resultMap id="BaseResultMap" type="com.lab.bean.ExpInformation">
+    <id column="expinformation_id" jdbcType="INTEGER" property="expinformationId" />
+    <result column="expinformation_faculty" jdbcType="VARCHAR" property="expinformationFaculty" />
+    <result column="expinformation_type" jdbcType="VARCHAR" property="expinformationType" />
+    <result column="expinformation_name" jdbcType="VARCHAR" property="expinformationName" />
+    <result column="expinformation_teacher_name" jdbcType="VARCHAR" property="expinformationTeacherName" />
+    <result column="expinformation_status" jdbcType="INTEGER" property="expinformationStatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lab.bean.ExpInformationWithBLOBs">
+    <result column="expinformation_purpose" jdbcType="LONGVARCHAR" property="expinformationPurpose" />
+    <result column="expinformation_ins" jdbcType="LONGVARCHAR" property="expinformationIns" />
+    <result column="expinformation_step" jdbcType="LONGVARCHAR" property="expinformationStep" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    expinformation_id, expinformation_faculty, expinformation_type, expinformation_name, 
+    expinformation_teacher_name, expinformation_status
+  </sql>
+  <sql id="Blob_Column_List">
+    expinformation_purpose, expinformation_ins, expinformation_step
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.lab.bean.ExpInformationExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from expinformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.lab.bean.ExpInformationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from expinformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from expinformation
+    where expinformation_id = #{expinformationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from expinformation
+    where expinformation_id = #{expinformationId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lab.bean.ExpInformationExample">
+    delete from expinformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lab.bean.ExpInformationWithBLOBs">
+    insert into expinformation (expinformation_id, expinformation_faculty, 
+      expinformation_type, expinformation_name, 
+      expinformation_teacher_name, expinformation_status, 
+      expinformation_purpose, expinformation_ins, 
+      expinformation_step)
+    values (#{expinformationId,jdbcType=INTEGER}, #{expinformationFaculty,jdbcType=VARCHAR}, 
+      #{expinformationType,jdbcType=VARCHAR}, #{expinformationName,jdbcType=VARCHAR}, 
+      #{expinformationTeacherName,jdbcType=VARCHAR}, #{expinformationStatus,jdbcType=INTEGER}, 
+      #{expinformationPurpose,jdbcType=LONGVARCHAR}, #{expinformationIns,jdbcType=LONGVARCHAR}, 
+      #{expinformationStep,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lab.bean.ExpInformationWithBLOBs">
+    insert into expinformation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="expinformationId != null">
+        expinformation_id,
+      </if>
+      <if test="expinformationFaculty != null">
+        expinformation_faculty,
+      </if>
+      <if test="expinformationType != null">
+        expinformation_type,
+      </if>
+      <if test="expinformationName != null">
+        expinformation_name,
+      </if>
+      <if test="expinformationTeacherName != null">
+        expinformation_teacher_name,
+      </if>
+      <if test="expinformationStatus != null">
+        expinformation_status,
+      </if>
+      <if test="expinformationPurpose != null">
+        expinformation_purpose,
+      </if>
+      <if test="expinformationIns != null">
+        expinformation_ins,
+      </if>
+      <if test="expinformationStep != null">
+        expinformation_step,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="expinformationId != null">
+        #{expinformationId,jdbcType=INTEGER},
+      </if>
+      <if test="expinformationFaculty != null">
+        #{expinformationFaculty,jdbcType=VARCHAR},
+      </if>
+      <if test="expinformationType != null">
+        #{expinformationType,jdbcType=VARCHAR},
+      </if>
+      <if test="expinformationName != null">
+        #{expinformationName,jdbcType=VARCHAR},
+      </if>
+      <if test="expinformationTeacherName != null">
+        #{expinformationTeacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="expinformationStatus != null">
+        #{expinformationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="expinformationPurpose != null">
+        #{expinformationPurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="expinformationIns != null">
+        #{expinformationIns,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="expinformationStep != null">
+        #{expinformationStep,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lab.bean.ExpInformationExample" resultType="java.lang.Long">
+    select count(*) from expinformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update expinformation
+    <set>
+      <if test="record.expinformationId != null">
+        expinformation_id = #{record.expinformationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.expinformationFaculty != null">
+        expinformation_faculty = #{record.expinformationFaculty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expinformationType != null">
+        expinformation_type = #{record.expinformationType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expinformationName != null">
+        expinformation_name = #{record.expinformationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expinformationTeacherName != null">
+        expinformation_teacher_name = #{record.expinformationTeacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expinformationStatus != null">
+        expinformation_status = #{record.expinformationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.expinformationPurpose != null">
+        expinformation_purpose = #{record.expinformationPurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.expinformationIns != null">
+        expinformation_ins = #{record.expinformationIns,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.expinformationStep != null">
+        expinformation_step = #{record.expinformationStep,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update expinformation
+    set expinformation_id = #{record.expinformationId,jdbcType=INTEGER},
+      expinformation_faculty = #{record.expinformationFaculty,jdbcType=VARCHAR},
+      expinformation_type = #{record.expinformationType,jdbcType=VARCHAR},
+      expinformation_name = #{record.expinformationName,jdbcType=VARCHAR},
+      expinformation_teacher_name = #{record.expinformationTeacherName,jdbcType=VARCHAR},
+      expinformation_status = #{record.expinformationStatus,jdbcType=INTEGER},
+      expinformation_purpose = #{record.expinformationPurpose,jdbcType=LONGVARCHAR},
+      expinformation_ins = #{record.expinformationIns,jdbcType=LONGVARCHAR},
+      expinformation_step = #{record.expinformationStep,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update expinformation
+    set expinformation_id = #{record.expinformationId,jdbcType=INTEGER},
+      expinformation_faculty = #{record.expinformationFaculty,jdbcType=VARCHAR},
+      expinformation_type = #{record.expinformationType,jdbcType=VARCHAR},
+      expinformation_name = #{record.expinformationName,jdbcType=VARCHAR},
+      expinformation_teacher_name = #{record.expinformationTeacherName,jdbcType=VARCHAR},
+      expinformation_status = #{record.expinformationStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lab.bean.ExpInformationWithBLOBs">
+    update expinformation
+    <set>
+      <if test="expinformationFaculty != null">
+        expinformation_faculty = #{expinformationFaculty,jdbcType=VARCHAR},
+      </if>
+      <if test="expinformationType != null">
+        expinformation_type = #{expinformationType,jdbcType=VARCHAR},
+      </if>
+      <if test="expinformationName != null">
+        expinformation_name = #{expinformationName,jdbcType=VARCHAR},
+      </if>
+      <if test="expinformationTeacherName != null">
+        expinformation_teacher_name = #{expinformationTeacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="expinformationStatus != null">
+        expinformation_status = #{expinformationStatus,jdbcType=INTEGER},
+      </if>
+      <if test="expinformationPurpose != null">
+        expinformation_purpose = #{expinformationPurpose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="expinformationIns != null">
+        expinformation_ins = #{expinformationIns,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="expinformationStep != null">
+        expinformation_step = #{expinformationStep,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where expinformation_id = #{expinformationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lab.bean.ExpInformationWithBLOBs">
+    update expinformation
+    set expinformation_faculty = #{expinformationFaculty,jdbcType=VARCHAR},
+      expinformation_type = #{expinformationType,jdbcType=VARCHAR},
+      expinformation_name = #{expinformationName,jdbcType=VARCHAR},
+      expinformation_teacher_name = #{expinformationTeacherName,jdbcType=VARCHAR},
+      expinformation_status = #{expinformationStatus,jdbcType=INTEGER},
+      expinformation_purpose = #{expinformationPurpose,jdbcType=LONGVARCHAR},
+      expinformation_ins = #{expinformationIns,jdbcType=LONGVARCHAR},
+      expinformation_step = #{expinformationStep,jdbcType=LONGVARCHAR}
+    where expinformation_id = #{expinformationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lab.bean.ExpInformation">
+    update expinformation
+    set expinformation_faculty = #{expinformationFaculty,jdbcType=VARCHAR},
+      expinformation_type = #{expinformationType,jdbcType=VARCHAR},
+      expinformation_name = #{expinformationName,jdbcType=VARCHAR},
+      expinformation_teacher_name = #{expinformationTeacherName,jdbcType=VARCHAR},
+      expinformation_status = #{expinformationStatus,jdbcType=INTEGER}
+    where expinformation_id = #{expinformationId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" parameterType="java.lang.Integer" resultType="com.lab.bean.Exp_Res_Sch_Lab">
+    select T1.*,T2.*,T3.*,t4.*
+    FROM
+        expinformation t1,reservation t2,`schedule` t3, labinformation t4
+    WHERE
+        T1.expinformation_id = T2.reser_expid
+    AND
+        t4.labinformation_id = T2.reser_labid
+    AND
+        T3.lab_id = t4.labinformation_id
+    AND
+        t2.reser_data = T3.Schedule_date
+  </select>
+  <select id="selectByNameToId" parameterType="java.lang.String" resultType="java.lang.String">
+  SELECT
+   t1.expinformation_id
+  FROM
+   expinformation t1
+  WHERE
+   t1.expinformation_name = #{expinformation_name};
+  </select>
+  <select id="isexit" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT
+        t1.res_id
+    FROM
+        reservation t1,user_role t2
+    where
+        t1.reser_user_id = t2.user_id
+    AND
+        t2.role_id != 1
+    AND
+    	t1.reser_labid = #{arg0}
+    AND
+        t1.reser_datatime = #{arg1}
+    AND
+        t1.reser_data = #{arg2}
+  </select>
+  <select id="selectAllyuyuejieg" parameterType="java.lang.Integer" resultType="com.lab.bean.Exp_Res_Sch_Lab">
+     select
+	DISTINCT T1.*,T2.*,t4.*
+    FROM
+        expinformation t1,reservation t2, labinformation t4
+    WHERE
+        T1.expinformation_id = T2.reser_expid
+    AND
+        t4.labinformation_id = T2.reser_labid
+    AND
+        t2.reser_status IS NOT null;
+  </select>
+  <select id="selectAllsyxinxi" resultType="com.lab.bean.Exp_Res_Sch_Lab">
+    select
+	DISTINCT T1.*,T2.*,T3.*,t4.*
+    FROM
+        expinformation t1,reservation t2,`schedule` t3, labinformation t4
+    WHERE
+        T1.expinformation_id = T2.reser_expid
+    AND
+        t4.labinformation_id = T2.reser_labid
+    AND
+        T3.lab_id = t4.labinformation_id
+    AND
+        t2.reser_data = T3.Schedule_date
+  </select>
+</mapper>

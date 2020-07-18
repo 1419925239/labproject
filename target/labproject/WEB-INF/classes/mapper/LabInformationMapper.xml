@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lab.dao.LabInformationMapper">
+  <resultMap id="BaseResultMap" type="com.lab.bean.LabInformation">
+    <id column="labinformation_id" jdbcType="INTEGER" property="labinformationId" />
+    <result column="labinformation_floor" jdbcType="VARCHAR" property="labinformationFloor" />
+    <result column="labinformation_num" jdbcType="INTEGER" property="labinformationNum" />
+    <result column="labinformation_sykj" jdbcType="INTEGER" property="labinformationSykj" />
+    <result column="labinformation_name" jdbcType="VARCHAR" property="labinformationName" />
+    <result column="labinformation_description" jdbcType="VARCHAR" property="labinformationDescription" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    labinformation_id, labinformation_floor, labinformation_num, labinformation_sykj, 
+    labinformation_name, labinformation_description
+  </sql>
+  <select id="selectByExample" parameterType="com.lab.bean.LabInformationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from labinformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from labinformation
+    where labinformation_id = #{labinformationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from labinformation
+    where labinformation_id = #{labinformationId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lab.bean.LabInformationExample">
+    delete from labinformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lab.bean.LabInformation">
+    insert into labinformation (labinformation_id, labinformation_floor, 
+      labinformation_num, labinformation_sykj, 
+      labinformation_name, labinformation_description
+      )
+    values (#{labinformationId,jdbcType=INTEGER}, #{labinformationFloor,jdbcType=VARCHAR}, 
+      #{labinformationNum,jdbcType=INTEGER}, #{labinformationSykj,jdbcType=INTEGER}, 
+      #{labinformationName,jdbcType=VARCHAR}, #{labinformationDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lab.bean.LabInformation">
+    insert into labinformation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="labinformationId != null">
+        labinformation_id,
+      </if>
+      <if test="labinformationFloor != null">
+        labinformation_floor,
+      </if>
+      <if test="labinformationNum != null">
+        labinformation_num,
+      </if>
+      <if test="labinformationSykj != null">
+        labinformation_sykj,
+      </if>
+      <if test="labinformationName != null">
+        labinformation_name,
+      </if>
+      <if test="labinformationDescription != null">
+        labinformation_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="labinformationId != null">
+        #{labinformationId,jdbcType=INTEGER},
+      </if>
+      <if test="labinformationFloor != null">
+        #{labinformationFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="labinformationNum != null">
+        #{labinformationNum,jdbcType=INTEGER},
+      </if>
+      <if test="labinformationSykj != null">
+        #{labinformationSykj,jdbcType=INTEGER},
+      </if>
+      <if test="labinformationName != null">
+        #{labinformationName,jdbcType=VARCHAR},
+      </if>
+      <if test="labinformationDescription != null">
+        #{labinformationDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lab.bean.LabInformationExample" resultType="java.lang.Long">
+    select count(*) from labinformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update labinformation
+    <set>
+      <if test="record.labinformationId != null">
+        labinformation_id = #{record.labinformationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.labinformationFloor != null">
+        labinformation_floor = #{record.labinformationFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.labinformationNum != null">
+        labinformation_num = #{record.labinformationNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.labinformationSykj != null">
+        labinformation_sykj = #{record.labinformationSykj,jdbcType=INTEGER},
+      </if>
+      <if test="record.labinformationName != null">
+        labinformation_name = #{record.labinformationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.labinformationDescription != null">
+        labinformation_description = #{record.labinformationDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update labinformation
+    set labinformation_id = #{record.labinformationId,jdbcType=INTEGER},
+      labinformation_floor = #{record.labinformationFloor,jdbcType=VARCHAR},
+      labinformation_num = #{record.labinformationNum,jdbcType=INTEGER},
+      labinformation_sykj = #{record.labinformationSykj,jdbcType=INTEGER},
+      labinformation_name = #{record.labinformationName,jdbcType=VARCHAR},
+      labinformation_description = #{record.labinformationDescription,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lab.bean.LabInformation">
+    update labinformation
+    <set>
+      <if test="labinformationFloor != null">
+        labinformation_floor = #{labinformationFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="labinformationNum != null">
+        labinformation_num = #{labinformationNum,jdbcType=INTEGER},
+      </if>
+      <if test="labinformationSykj != null">
+        labinformation_sykj = #{labinformationSykj,jdbcType=INTEGER},
+      </if>
+      <if test="labinformationName != null">
+        labinformation_name = #{labinformationName,jdbcType=VARCHAR},
+      </if>
+      <if test="labinformationDescription != null">
+        labinformation_description = #{labinformationDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where labinformation_id = #{labinformationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lab.bean.LabInformation">
+    update labinformation
+    set labinformation_floor = #{labinformationFloor,jdbcType=VARCHAR},
+      labinformation_num = #{labinformationNum,jdbcType=INTEGER},
+      labinformation_sykj = #{labinformationSykj,jdbcType=INTEGER},
+      labinformation_name = #{labinformationName,jdbcType=VARCHAR},
+      labinformation_description = #{labinformationDescription,jdbcType=VARCHAR}
+    where labinformation_id = #{labinformationId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" parameterType="java.lang.Integer" resultType="com.lab.bean.LabInformation">
+    select
+     t1.labinformation_id,
+     t1.labinformation_floor,
+     t1.labinformation_name,
+     t1.labinformation_num,
+     t1.labinformation_sykj,
+     t1.labinformation_description
+    FROM
+     labinformation t1
+  </select>
+  <select id="selectAllFloor" parameterType="java.lang.Integer" resultType="com.lab.bean.LabInformation">
+  select
+   DISTINCT t1.labinformation_floor
+  FROM
+   labinformation t1;
+  </select>
+  <select id="selectByNameToId" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT
+        t1.labinformation_id
+    FROM
+        labinformation t1
+    WHERE
+        t1.labinformation_name = #{labinformation_name};
+  </select>
+  <select id="selectLabName" resultType="com.lab.bean.LabInformation">
+    SELECT
+     DISTINCT t1.labinformation_name
+    FROM labinformation t1
+     ORDER BY t1.labinformation_floor;
+  </select>
+</mapper>

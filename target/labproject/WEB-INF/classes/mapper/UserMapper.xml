@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lab.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.lab.bean.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="user_calss" jdbcType="VARCHAR" property="userCalss" />
+    <result column="user_faculty" jdbcType="VARCHAR" property="userFaculty" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
+    <result column="user_delete" jdbcType="INTEGER" property="userDelete" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_name, user_password, salt, user_calss, user_faculty, user_phone, user_status, 
+    user_delete
+  </sql>
+  <select id="selectByExample" parameterType="com.lab.bean.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lab.bean.UserExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lab.bean.User">
+    insert into user (user_id, user_name, user_password, 
+      salt, user_calss, user_faculty, 
+      user_phone, user_status, user_delete
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{userCalss,jdbcType=VARCHAR}, #{userFaculty,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR}, #{userStatus,jdbcType=INTEGER}, #{userDelete,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lab.bean.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="userCalss != null">
+        user_calss,
+      </if>
+      <if test="userFaculty != null">
+        user_faculty,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="userDelete != null">
+        user_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="userCalss != null">
+        #{userCalss,jdbcType=VARCHAR},
+      </if>
+      <if test="userFaculty != null">
+        #{userFaculty,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userDelete != null">
+        #{userDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lab.bean.UserExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null">
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCalss != null">
+        user_calss = #{record.userCalss,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userFaculty != null">
+        user_faculty = #{record.userFaculty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null">
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userStatus != null">
+        user_status = #{record.userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userDelete != null">
+        user_delete = #{record.userDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      user_calss = #{record.userCalss,jdbcType=VARCHAR},
+      user_faculty = #{record.userFaculty,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_status = #{record.userStatus,jdbcType=INTEGER},
+      user_delete = #{record.userDelete,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lab.bean.User">
+    update user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="userCalss != null">
+        user_calss = #{userCalss,jdbcType=VARCHAR},
+      </if>
+      <if test="userFaculty != null">
+        user_faculty = #{userFaculty,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userDelete != null">
+        user_delete = #{userDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lab.bean.User">
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      user_calss = #{userCalss,jdbcType=VARCHAR},
+      user_faculty = #{userFaculty,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      user_delete = #{userDelete,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectUserRoleNameSet" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT
+     DISTINCT t2.role_name
+    FROM
+        user_role t1 , role t2
+    WHERE
+        t2.role_id = t1.role_id
+    AND
+        t1.user_id = #{userId}
+  </select>
+  <select id="selectUserQxNameSet" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT
+         DISTINCT t1.qx_name
+    FROM
+         resource t1,
+         role_resource t2,
+         user_role t3
+    WHERE
+         t1.qx_name is not NULL
+    AND
+         t1.res_id = t2.res_id
+    AND
+         t2.role_id = t3.role_id
+    AND
+         t3.user_id=#{userId}
+  </select>
+  <select id="selectMenuList" parameterType="java.lang.Integer" resultType="com.lab.bean.Menu">
+    SELECT
+        t1.res_id,
+        t1.parent_id,
+        t1.res_name
+    FROM
+        resource t1,
+        role_resource t2,
+        user_role t3
+    WHERE
+        t1.res_id = t2.res_id
+    AND
+        t2.role_id = t3.role_id
+    AND
+        t1.type != 2
+    AND
+        t3.user_id =  #{userId}
+  </select>
+  <select id="selectStudent" parameterType="java.lang.Integer" resultType="com.lab.bean.UserInfo">
+    SELECT
+      t1.user_id,
+      t1.user_name,
+      t1.user_password,
+      t1.user_faculty,
+      t1.user_calss,
+      t1.user_phone,
+      t1.user_status,
+      t1.user_delete,
+      t3.role_name
+    FROM
+      `user` t1,
+      user_role t2,
+      role t3
+    WHERE
+     t1.user_id = t2.user_id
+    AND
+     t3.role_id = t2.role_id
+    AND
+        t3.role_id = #{arg0}
+    LIMIT #{arg1},#{arg2}
+  </select>
+  <select id="selectByFacyulyToTeacherName" parameterType="java.lang.String" resultType="com.lab.bean.User">
+    SELECT
+        t1.user_name
+    FROM
+        `user` t1,user_role t2
+    WHERE
+        t1.user_id = t2.user_id
+    AND
+        t2.role_id = 2
+    AND
+        t1.user_faculty = #{userfaculty};
+  </select>
+  <select id="selectByidToName" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select
+        t1.user_name
+    FROM
+        `user` t1
+    where
+        t1.user_id = #{userid}
+  </select>
+  <select id="selectByNameToId" parameterType="java.lang.String" resultType="java.lang.String">
+    select
+        t1.user_id
+    from
+        `user` t1
+    where
+        t1.user_name = #{arg0}
+    AND
+        t1.user_calss = #{arg1}
+  </select>
+  <select id="findAllstudent" resultType="com.lab.bean.User">
+  SELECT
+    t1.*
+  FROM
+    `user` t1,user_role t2
+  where
+    t1.user_id = t2.user_id
+  AND
+    t2.role_id = '1';
+  </select>
+  <select id="findAllTeacher" resultType="com.lab.bean.User">
+    SELECT
+    t1.*
+  FROM
+    `user` t1,user_role t2
+  where
+    t1.user_id = t2.user_id
+  AND
+    t2.role_id = '2';
+  </select>
+</mapper>

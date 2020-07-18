@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: com.lab.shiro.ShiroTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.768 s <<< FAILURE! - in com.lab.shiro.ShiroTest
+initializationError(com.lab.shiro.ShiroTest)  Time elapsed: 0.005 s  <<< ERROR!
+java.lang.Exception: No runnable methods
+
